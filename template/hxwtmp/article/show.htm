@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" /> 
+<base target="_blank">
+<title>{$title} -{$DT[sitename]}</title>
+<meta name="keywords" content="{$head_keywords}" />
+<meta name="description" content="{$head_description}" />
+<link rel="stylesheet" href="{DT_SKIN}css/common.css" />
+<link rel="stylesheet" href="{DT_SKIN}css/atricle_yule.css" />
+<style type="text/css">
+	a.wblack{float:right;margin:5px 10px 0 0;font-size:12px;font-weight:normal;color: #000;}
+	.pbtoom{text-align: right;}
+	.pbtoom a{color: #000;}
+	#div_textlink,td, th{vertical-align:baseline !important;}
+	.movelist{}
+	.movelist li{line-height:32px;padding:0 10px;font-size:20px;}
+	.movelist li a{color:#f00;font-weight:bold;}
+	.txtad_right{width: 300px;height: 250px;float: right;margin:10px 0 0 10px;}
+</style>
+</head>
+<body>
+<div id="page">
+    {template 'header'}
+	
+<div class="topads"></div>
+<div class="wrap clearfix">
+	<span class="blank10"></span>
+	<div class="atricle-weizhi">
+	当前位置：<a href="{$MODULE[1][linkurl]}">首页</a> > <a href="{$CAT[linkurl]}">{$CAT[catname]}</a> > {$title}
+	</div>     
+	<div class="wrap-main clearfix">            
+        <div class="atricle-left">
+			<div class="content">
+				<h1 class="title">{$title}</h1>
+				<div class="article-attr">{$adddate}  来源：{$copyfrom}  作者：{$author}</div>
+				<div class="art-ad" style="margin-top:5px;"></div>
+				<div class="desrcon">
+					<p>导读:{$introduce}</p>
+					<p>
+					关键词：{if $keytags}
+					{loop $keytags $t}
+					{$t} 
+					{/loop}
+					{/if}</p>
+				</div>
+				<div class="con">
+					 {template 'content', 'chip'}
+				</div> <!-- end con -->
+                        
+                <!--<div class="inner-ad"></div>-->
+				<div class="inner-title"><strong>{$title}相关内容</strong></div>
+				<div class="inner-ad"></div> 
+				<!-- end 广告 -->
+
+				<div class="news-related">
+					<dl>
+                        {loop $relatelist $t}
+                        <dt><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></dt>
+                        <dd>
+                            {$t[introduce]}...<a href="{$t[linkurl]}">[详情]</a><br>
+                            Tag: {$t[tag]}
+                        </dd>
+                        {/loop}
+                    </dl>    
+				</div> <!-- end news-related -->
+				<p class="pbtoom"><a href="{$CAT[linkurl]}">{$CAT[catname]}</a></p>
+				<div class="clear"></div>
+				<div class="random-info clearfix">
+					<div class="jad">
+						<!--<img src="http://www.ppho.cn/skin/skin_fashion/images/1111111.jpg" alt="" width="100%" height="90" />-->
+					</div>
+					<ul class="jinfo-ul">
+					</ul>
+				</div> <!-- end random-info -->
+				</div>
+            </div> <!-- end atricle-left -->
+				
+                <div class="atricle-sider">
+                <!-- <div class="box-msier t-c"><img src="http://www.ppho.cn/skin/skin_fashion/images/ritop.jpg" alt=""></div> -->
+				<div class="box-msier">
+					<div class="title">备考指南</div>
+					<div class="box-msier t-c"></div>
+                </div> <!-- end box-msier --> 	
+                <div class="box-msier">
+					<div class="title"><a href="{$CAT[linkurl]}" class="wblack">更多>></a>最新{$CAT[catname]}相关资讯</div>
+					<ul class="msier-list">
+						{loop $lastlist $i $t}  
+						<li>
+							<a href="{$t['caturl']}" class="catname">[{$t['catname']}]</a>
+							<a href="{$t['linkurl']}" class="url">{$t['title']}</a>
+						</li>
+						{/loop}
+					</ul>
+				</div> <!-- end box-msier --> 
+					
+				   <!--
+					<div class="box-msier">
+						<div class="title">{$CAT[catname]}热词排行</div>
+						<div class="catlist">
+							<!--{php $tags=tag("moduleid=$moduleid&condition=status=3&pagesize=20&order=hits desc&template=null");}-->
+							{loop $tags $t}
+							<a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a>
+							{/loop}
+						</div>
+					</div> 
+					-->
+					<!-- end box-msier -->                     
+						<!--
+                        <div class="box-msier">
+                        <div class="title"><a href="{$CAT[linkurl]}" class="wblack">更多>></a>其它{$MOD[name]}新闻</div>
+                            <ul class="msier-list">	
+												</ul>	
+                        </div> 
+						-->
+						<!-- end box-msier -->
+                
+                </div> <!-- end atricle-sider -->
+            </div>
+            {template 'footer'}
+				
+        </div> <!-- end wrap --> 
+</div>
+</body>
+</html>

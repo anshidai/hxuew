@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<base target="_blank">
+<title>{if $seo_title}{$seo_title}{else}{if $head_title}{$head_title}{$DT[seo_delimiter]}{/if}{if $city_sitename}{$city_sitename}{else}{$DT[sitename]}{/if}{/if}</title>
+<meta name="keywords" content="{$head_keywords}" />
+<meta name="description" content="{$head_description}" />
+<link rel="stylesheet" href="{DT_SKIN}css/common.css">
+<link rel="stylesheet" href="{DT_SKIN}css/index_style.css">
+<meta name="baidu-site-verification" content="XXeNOEwQ8B" />
+<meta name="sogou_site_verification" content="vUjfmWVRlu"/>
+<meta name="google-site-verification" content="b5MswCY-MOc0z8Nxs5gvvJHwCCbqd4pgyF0w6HwxZSg" />
+<meta name="baidu-site-verification" content="Quz3yJUqTd" />
+</head>
+<body>
+<div id="page">
+    {template 'header'}
+<div class="main">
+    <div class="box-wrap boxflash clearfix">
+        <div class="siderleft">
+            <div class="masterleft">
+                <div class="flash-box">
+                    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=1 and thumb<>''&pagesize=4&order=addtime desc&template=null");}-->
+                    <ul class="flash-img">
+                        {loop $tags $i $t}
+                        <li><a href="{$t[linkurl]}" title="{$t[alt]}"><img src="{$t[thumb]}" alt="{$t[alt]}"><span>{$t[title]}</span></a></li>
+                        {/loop}
+                    </ul>
+                    <div class="flash-page">
+                        {loop $tags $i $t}
+                        <i {if $i==0}class="curr"{/if}>{$i}</i>
+                        {/loop}
+                    </div>
+                </div> <!-- end flash-box -->
+
+            <dl class="bimg">
+                <dt>
+                    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=2 and thumb<>''&pagesize=1&order=addtime desc&template=null");}-->
+                    <a href="{$t[linkurl]}"><img src="{$t[thumb]}" alt="{$t[alt]}"><span>{$t[title]}</span></a>
+                </dt>
+                <!--{php $tags=tag("moduleid=21&condition=status=3 and level=2&pagesize=7&order=addtime desc&template=null");}-->
+                {loop $tags $t}
+                <dd><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></dd>
+                {/loop}
+            </dl>
+            </div> <!-- end masterleft -->
+            
+            <div class="baset-news">
+                <div class="new-t">
+                    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=3&pagesize=2&order=addtime desc&template=null");}-->
+                    {loop $tags $t}
+                    <strong><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></strong>
+                    <p>{$t[introduce]}</p>
+                    {/loop}
+                </div>
+                <div class="new-info">
+                    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=4&pagesize=12&showcat=1&order=addtime desc&template=null");}-->
+                    <ul class="c1">
+                        {loop $tags $i $t}
+                        {if $i<=5}
+                        <li><a href="{$t[caturl]}">[{$t[catname]}]</a> <a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+                        {/if}
+                        {/loop}
+                        </ul>
+                        <ul class="c2">
+                        {loop $tags $i $t}
+                        {if $i<=5}
+                        <li><a href="{$t[caturl]}">[{$t[catname]}]</a> <a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+                        {/if}
+                        {/loop}
+                     </ul>
+                </div>
+            </div> <!-- end center-news -->
+        </div><!-- end siderleft -->
+    <div class="siderright">
+    <div class="newstop">
+    <div class="title"><h2>关注排行</h2></div>
+    <ul class="vlist">
+        <!--{php $tags=tag("moduleid=21&condition=status=3 and level=5&pagesize=9&order=hits desc&template=null");}-->
+        {loop $tags $t}
+        <li><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+        {/loop}
+     </ul>
+    <div class="title"><h2>精选新闻</h2></div>
+    <ul class="nlist">
+        <!--{php $tags=tag("moduleid=21&condition=status=3 and level=6&pagesize=9&order=addtime desc&template=null");}-->
+        {loop $tags $t}
+        <li><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+        {/loop}
+     </ul>
+    </div>
+    </div> <!-- end siderright -->
+    </div> <!-- end box-wrap -->
+
+<div class="wrap-ad mt10"></div>
+
+<div class="box-wrap">
+<div class="btitle"><h2>托福</h2></div>
+<div class="boxmain clearfix">
+<div class="fashion-left">
+    <div class="timg">
+    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=7 and thumb<>''&pagesize=1&order=addtime desc&template=null");}-->
+    <a href="{$t[linkurl]}"><img src="{$t[thumb]}" alt="{$t[alt]}" /><span>{$t[title]}</span></a>
+    </div>
+    <dl class="tdl">
+    <dt><h3><a href="http://www.hxuew.com/news/tuofuzixun-c45-1.html">托福资讯</a></h3></dt>
+    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=8&pagesize=7&order=addtime desc&template=null");}-->
+        {loop $tags $t}
+        <dd><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></dd>
+        {/loop}
+    </dl>
+</div> <!-- end fashion-left -->
+<div class="fashion-center">
+    <div class="tcenter">
+    <!--{php $tags=tag("moduleid=21&condition=status=3 and level=9&pagesize=1&order=addtime desc&template=null");}-->
+    <strong><a href="{$t[linkurl]}">{$t[title]}</a></strong>
+    <p>{$t[introduce]}...<a href="{$t[linkurl]}">[详情]</a></p>
+    </div>
+    <div class="title"><h3><a href="http://www.hxuew.com/news/tuofutingli-c57-1.html">托福听力</a></h3></div>
+    <ul class="vlist">
+        <!--{php $tags=tag("moduleid=21&condition=status=3 and level=10&pagesize=6&order=addtime desc&template=null");}-->
+        {loop $tags $t}
+        <li><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+        {/loop}
+    </ul>
+    <div class="title"><h3><a href="http://www.hxuew.com/news/tuofukouyu-c60-1.html">托福口语</a></h3></div>
+    <ul class="vlist">
+        <!--{php $tags=tag("moduleid=21&condition=status=3 and level=11&pagesize=7&order=addtime desc&template=null");}-->
+        {loop $tags $t}
+        <li><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></li>
+        {/loop}
+    </ul>
+</div> <!-- end fashion-center -->
+<div class="fashion-right">
+<div class="fright">
+    <div class="title"><h3><a href="http://www.hxuew.com/news/tuofuxiezuo-c59-1.html">托福写作</a></h3></div>
+    <dl class="tdl">
+        <!--{php $tags=tag("moduleid=21&condition=status=3 and level=12&pagesize=19&order=addtime desc&template=null");}-->
+        {loop $tags $t}
+        <dd><a href="{$t[linkurl]}" title="{$t[alt]}">{$t[title]}</a></dd>
+        {/loop}
+    </dl>
+    <!--<div class="timg"><a href=""><img src="" alt="" width="230" /><span></span></a></div>-->
+</div>
+</div> <!-- end fashion-right -->
+</div> <!-- end boxmain -->
+</div> <!-- end box-wrap -->
+<div class="wrap-ad mt10"></div>
+
+<div class="box-wrap bwrap">
+<div class="btitle"><h2>雅思</h2></div>
+<div class="boxmain clearfix">
+<div class="fashion-left">
+<div class="timg">
+<!--{php $tags=tag("moduleid=21&condition=status=3 and level=13 and thumb<>''&pagesize=1&order=addtime desc&template=null");}-->
+{loop $tags $i $t}
+<a href="{$t[linkurl]}" title="{$t[alt]}"><img src="{$t[thumb]}" alt="{$t[alt]}" /><span>{$t[title]}</span></a>
+{/loop}
+</div>
+<dl class="tdl">
+<dt><h3><a href="http://www.hxuew.com/news/yasizixun-c44-1.html">雅思资讯</a></h3></dt>
+<!--{php $tags=tag("moduleid=21&condition=status=3 and level=14&pagesize=7&order=addtime desc&template=null");}-->
+{loop $tags $t}
+<dd><a href="{$t[linkurl]}">{$t[title]}</a></dd>
+{/loop}
+</dl>
+</div> <!-- end fashion-left -->
+<div class="fashion-center">
+<div class="tcenter">
+<!--{php $tags=tag("moduleid=21&condition=status=3 and level=15&pagesize=1&order=addtime desc&template=null");}-->
+{loop $tags $i $t}
+<strong><a href="{$t[linkurl]}">{$t[title]}</a></strong>
+<p>{$t[introduce]}...<a href="{$t[linkurl]}">[详情]</a></p>
+{/loop}
+</div>
+<div class="title"><h3><a href="http://www.hxuew.com/news/yasitingli-c50-1.html">雅思听力</a></h3></div>
+<ul class="vlist">
+<!--{php $tags=tag("moduleid=21&condition=status=3 and level=16&pagesize=7&order=addtime desc&template=null");}-->
+{loop $tags $t}
+<li><a href="{$t[linkurl]}">{$t[title]}</a></li>
+{/loop}
+  </ul>
+<div class="title"><h3><a href="http://www.hxuew.com/news/yasikouyu-c53-1.html">雅思口语</a></h3></div>
+  <ul class="vlist last-vlist">
+  <!--{php $tags=tag("moduleid=21&condition=status=3 and level=17&pagesize=6&order=addtime desc&template=null");}-->
+    {loop $tags $t}
+    <li><a href="{$t[linkurl]}">{$t[title]}</a></li>
+    {/loop}
+  </ul>
+</div> <!-- end fashion-center -->
+<div class="fashion-right">
+<div class="fright">
+<div class="title"><h3><a href="http://www.hxuew.com/news/yasixiezuo-c52-1.html">雅思写作</a></h3></div>
+<!--<div class="timg"><a href=""><img src="" alt="" width="230" /><span></span></a></div>-->
+<dl class="tdl">
+<!--{php $tags=tag("moduleid=21&condition=status=3 and level=18&pagesize=19&order=addtime desc&template=null");}-->
+{loop $tags $t}
+<dd><a href="{$t[linkurl]}">{$t[title]}</a></dd>
+{/loop}
+</dl>
+</div>
+</div> <!-- end fashion-right -->
+</div> <!-- end boxmain -->
+</div> <!-- end box-wrap -->
+<div class="link-box">
+<b>友情链接（361697735）：<a href="http://www.hxuew.com/">好学网</a></b>
+<span>
+</span>
+</div>
+</div> <!-- end main -->
+
+{template 'footer'}
+
+</div>
+</body>
+</html>
+

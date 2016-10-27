@@ -1,0 +1,1 @@
+var DTPath = "http://www.hxuew.com/";var SKPath = "http://www.hxuew.com/skin/hxw/";var MEPath = "http://www.hxuew.com/member/";var DTEditor = "fckeditor";var CKDomain = "";var CKPath = "/";var CKPrex = "cic_";

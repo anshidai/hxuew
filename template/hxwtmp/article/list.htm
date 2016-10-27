@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<base target="_blank">
+	<title>{$seo_title}<?php if($page>1) echo '第'.$page.'页';?></title>
+    <meta name="keywords" content="{$seo_keywords}" />
+    <meta name="description" content="{$seo_description}" />
+    <link rel="stylesheet" href="{DT_SKIN}css/common.css" />
+    <link rel="stylesheet" href="{DT_SKIN}css/atricle_yule.css" />
+</head>
+<body>
+	<div id="page">
+       {template 'header'}
+        
+    	<div class="wrap gray-bg clearfix">
+	        <div class="topads">
+            	<!--<img src="{DT_SKIN}images/index/nai-t.jpg" width="960" height="90" alt="">-->
+            </div>
+            <div class="postion">
+                    	当前位置：<a href="{DT_PATH}">首页</a> &gt; {$catname}
+            </div>
+            
+            <div class="wrap-main clearfix">            
+	        	<div class="marplist-wrap clearfix">
+	            	<div class="section">
+	                	<ul class="atricle-piclist">
+							{loop $tags $i $t}
+							<li>
+								<strong><a href="{$t[linkurl]}">{$t[title]}</a></strong>
+								<p>
+									{$t[introduce]}...<a href="{$t[linkurl]}">详情&gt;&gt;</a>
+								</p>
+	                        </li>
+							{/loop}
+	                    </ul>
+	                    <div class="clear"></div>
+                        {if $showpage && $pages}<div class="pages">{$pages}</div>{/if}
+	                </div> <!-- end section -->
+	                <div class="issider">
+                    	<div class="box-msier t-c">
+                        	<img src="{DT_SKIN}images/ritop.jpg" alt="">
+                        </div>
+	                	<div class="box-msier">
+                        	<div class="title">周TOP10</div>
+					        <!--{php $tags = tag("moduleid=$moduleid&fields=title,linkurl,catid&showcat=1&condition=status=3&pagesize=20&order=edittime desc&template=null",86400)}-->
+                            <ul class="msier-list">
+                                {loop $tags $i $t}
+                                {if $i<=9}  
+                            	<li>
+                                	<a href="{$t['caturl']}" class="catname">[{$t['catname']}]</a>
+                                    <a href="{$t['linkurl']}" class="url">{$t['title']}</a>
+                                </li>
+                                {/if}
+                                {/loop}
+                            </ul>
+                        </div> <!-- end box-msier -->
+                        
+                        <div class="box-msier">
+                        	<div class="title">{$catname}新闻</div>
+                            <ul class="msier-list">
+                            	{loop $tags $i $t}
+                                {if $i>9}  
+                                <li>
+                                    <a href="{$t['caturl']}" class="catname">[{$t['catname']}]</a>
+                                    <a href="{$t['linkurl']}" class="url">{$t['title']}</a>
+                                </li>
+                                {/if}
+                                {/loop}
+                            </ul>
+                        </div> <!-- end box-msier -->
+                        
+	                </div> <!-- end issider -->
+	            </div>
+            </div>
+            {template 'footer'}
+        </div> <!-- end wrap --> 
+        
+    </div>
+</body>
+</html>
