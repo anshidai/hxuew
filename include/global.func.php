@@ -1243,4 +1243,43 @@ function d301($url) {
 	dhttp(301, 0);
 	dheader($url);
 }
+
+/**
+ * 数组按照字符串长度排序
+ * @param array $arr
+ */
+function sortByArrayStrlen($arr, $order = SORT_ASC, $encoding = 'UTF-8')
+{
+    $lenArr = array();
+    foreach ($arr as $key => $val) {
+        $lenArr[$key] = mb_strlen($val, $encoding);
+    }
+    if ($order == SORT_DESC) {
+        arsort($lenArr);
+    } else {
+        asort($lenArr);
+    }
+    $ret = array();
+    foreach ($lenArr as $key => $val) {
+        $ret[] = $arr[$key];
+    }
+    return $ret;
+}
+
+/**
+ * 按照字符串长度排序
+ * @param string $str
+ */
+function sortBystrlen($str, $order = SORT_DESC, $split = ',')
+{
+    if(strpos($str, $split) === false) {
+        return $str;
+    }
+    $arr = explode($split, $str);
+    $arr = sortByArrayStrlen($arr, $order);
+    
+    return implode($split, $arr);
+}
+
+
 ?>

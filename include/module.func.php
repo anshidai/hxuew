@@ -304,6 +304,33 @@ function getTagRelateArticle($tagid, $notItemid = '', $num = 10)
     return isset($items)? implode(',', $items): '';
 }
 
+//通过tag词获取tagid
+function getTagidByTagName($tag, $split = ',')
+{
+     global $db;
+     
+     if(empty($tag)) return '';
+     
+     $arr = explode($split, $tag);
+     for($i=0; $i<count($arr); $i++) {
+         $map_in .= "'{$arr[$i]}'{$split}";
+     }
+     $map_in = rtrim($map_in, ',');
+     $result = $db->query("SELECT * FROM {$db->pre}tags WHERE name in($map_in)", $cache);
+      while($r = $db->fetch_array($result)) {
+        $data[$r['name']] = $r;   
+      }
+      
+      if($data) {
+          for($i=0; $i<count($arr); $i++) {
+            $tagids .= $data[$arr[$i]]['itemid'].$split;  
+          }
+          $tagids = rtrim($tagids, $split);
+      }
+      
+      return $tagids? $tagids: '';   
+}
+
 function getArticleList($itemid, $order = 'addtime DESC', $cache = '')
 {
     global $db,$CFG,$MOD;

@@ -305,6 +305,7 @@ class article {
         
         $tags = trim($tags);
         $tagsArr = preg_split('/[\s\|,]+/',$tags); //分隔符 | ,空格
+        $tagsArr = sortByArrayStrlen($tagsArr,SORT_DESC);
         for($i=0; $i<count($tagsArr); $i++) {
             if($tagid = $this->existsTag($tagsArr[$i])) {
                  $data[] = $tagid;         

@@ -67,7 +67,11 @@ if($MOD['template_show']) $template = $MOD['template_show'];
 if($CAT['show_template']) $template = $CAT['show_template'];
 if($item['template']) $template = $item['template'];
 
-$relateItemids = getTagRelateArticle($item['tagid'], $itemid, 10);
+
+$sorttag = sortBystrlen($item['tag']);
+$tagids = getTagidByTagName($sorttag);
+
+$relateItemids = getTagRelateArticle($tagids, $itemid, 10);
 if($relateItemids) {
     $relatelist = getArticleList($relateItemids);
 }
