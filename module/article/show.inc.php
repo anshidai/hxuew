@@ -71,8 +71,9 @@ if($item['template']) $template = $item['template'];
 $sorttag = sortBystrlen($item['tag']);
 $tagids = getTagidByTagName($sorttag);
 
-$relateItemids = getTagRelateArticle($tagids, $itemid, 10);
+$relateItemids = getRelateItemids($itemid, 10);
 if($relateItemids) {
+    $relateItemids = implode(',', $relateItemids);
     $relatelist = getArticleList($relateItemids);
 }
 

@@ -15,16 +15,31 @@ $act = htmlspecialchars(trim($_GET['act']))? htmlspecialchars(trim($_GET['act'])
 require MD_ROOT.'/article.class.php';
 $do = new article($moduleid);
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if($argv[1] == 'exportTag') {
     $result = $db->query("SELECT * FROM {$db->pre}article_21 WHERE status=3 ORDER BY addtime DESC");
+    //$result = $db->query("SELECT * FROM {$db->pre}article_21 WHERE itemid=2334");
     while($r = $db->fetch_array($result)) {
         if(!empty($r['tag'])) {
             if($tagids = $do->getTagId($r['tag'])) {
+                for($i=0; $i<count($tagids); $i++) {
+                    $itemids_tmp[] = getTagRelateArticle($tagids[$i], $r['itemid']);
+                }
+                $itemids = $do->pointTagArticle($itemids_tmp);
+                if(!empty($itemids)) {
+                    if(!$db->get_one("select * from {$db->pre}tags_relate_data where itemid={$r['itemid']}")) {
+                        $db->query("insert into {$db->pre}tags_relate_data (itemid,relateids) VALUES ({$r['itemid']}, '{$itemids}')");    
+                    }
+                }
                 $do->updateTagRelateArticle($r['itemid'], $tagids);
                 $db->query("UPDATE {$db->pre}article_21 SET tagid='".implode(',', $tagids)."' WHERE itemid={$r['itemid']}");   
             }   
-        }   
+        } 
+        echo "item {$r['itemid']}\n";  
     }
+    echo "complete\n";
     exit;
 }
 

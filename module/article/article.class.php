@@ -1,5 +1,7 @@
 <?php
 defined('IN_DESTOON') or exit('Access Denied');
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
 class article {
 	var $moduleid;
 	var $itemid;
@@ -295,8 +297,23 @@ class article {
     /************************** tags词相关函数 **************************/
     function saveTag($itemid, $tagids)
     {
+        global $CFG,$MOD;
+        
         if(empty($itemid) || empty($tagids)) return false;
+        
+        for($i=0; $i<count($tagids); $i++) {
+            $itemids_tmp[] = getTagRelateArticle($tagids[$i], $itemid);
+        }
+        $itemids = $this->pointTagArticle($itemids_tmp);
+        if(!empty($itemids)) {
+            if(!$this->db->get_one("select * from {$CFG['tb_pre']}tags_relate_data where itemid={$itemid}")) {
+                $this->db->query("insert into {$CFG['tb_pre']}tags_relate_data (itemid,relateids) VALUES ({$itemid}, '{$itemids}')");    
+            }
+        }
+        
         $this->updateTagRelateArticle($itemid, $tagids);
+        
+ 
     }
     
     function getTagId($tags)
@@ -331,7 +348,7 @@ class article {
     }
     
     //更新tag词
-    function updateTagRelateArticle($resid, $tagids, $num = 40)
+    function updateTagRelateArticle($resid, $tagids)
     {
         global $CFG,$MOD;
 
@@ -341,10 +358,53 @@ class article {
         
         shuffle($tagids);
         for($i=0; $i<count($tagids); $i++) {
-            if($i>=$num) break;
             $this->db->query("REPLACE INTO {$CFG['tb_pre']}tags_relate (resid,tagid) VALUES ({$resid}, {$tagids[$i]})");         
         }        
     } 
+    
+    
+    function pointTagArticle($ids = array(), $isstring = true)
+    {
+        if(empty($ids)) return false;
+        
+        $data = array();
+        for($i=0; $i<count($ids); $i++) {
+            $itemids = '';
+            $ite = explode(',', $ids[$i]);
+            $itelen = count($ite);
+            
+            if($itelen<3) {
+                $itemids = implode(',', $ite);    
+            }else {
+                if($i == 0) {
+                    $len = round($itelen * 0.2);
+                }elseif($i == 1) {
+                    $len = round($itelen * 0.5);    
+                }elseif($i == 2) {
+                    $len = round($itelen * 0.7);   
+                }elseif($i == 3) {
+                    $len = round($itelen * 0.9);    
+                }elseif($i == 4) {
+                    $len = round($itelen * 0.3);    
+                }elseif($i == 5) {
+                    $len = round($itelen * 0.2);    
+                } 
+                if($len) {
+                    $rand = array_rand($ite, $len);
+                    if($rand) {
+                        for($j=0; $j<count($rand); $j++) {
+                            $itemids .= $ite[$rand[$j]].',';
+                        }
+                        $itemids = rtrim($itemids, ',');    
+                    }     
+                }
+                
+            }
+            $data[] = $itemids;
+        }
+        
+        return $isstring? trim(implode(',', $data), ','): $data;
+    }
     
     
     

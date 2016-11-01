@@ -291,16 +291,25 @@ function highlight($str) {
 }
 
 //获取tagid关联过的文章id
-function getTagRelateArticle($tagid, $notItemid = '', $num = 10)
+function getTagRelateArticle($tagid, $notItemid, $num = 10)
 {
     global $db;
 
-    $result = $db->query("select resid from {$db->pre}tags_relate where tagid in({$tagid}) order by tagid desc limit {$num}");
+    $result = $db->query("select resid from {$db->pre}tags_relate where tagid in({$tagid})");
     while($r = $db->fetch_array($result)) {
-        $items[$r['resid']] = $r['resid'];      
+        //if($r['resid'] <= $notItemid) {
+            $items_tmp[] = $r['resid'];    
+        //}
     }
-    if($notItemid) unset($items[$notItemid]); 
+    if(isset($items_tmp[$notItemid])) unset($items_tmp[$notItemid]); 
     
+    if($items_tmp) {
+        shuffle($items_tmp);    
+    }
+    for($i=0; $i<count($items_tmp); $i++) {
+        if($i>$num) break;
+        $items[$items_tmp[$i]] = $items_tmp[$i];
+    }
     return isset($items)? implode(',', $items): '';
 }
 
@@ -331,6 +340,21 @@ function getTagidByTagName($tag, $split = ',')
       return $tagids? $tagids: '';   
 }
 
+function getRelateItemids($itemid, $num = 10)
+{
+    global $db,$CFG,$MOD;
+    
+    $r = $db->get_one("SELECT relateids FROM {$db->pre}tags_relate_data WHERE itemid={$itemid}");
+    if($r) {
+        $relateids = explode(',', $r['relateids']);
+        for($i=0; $i<count($relateids); $i++) {
+            if($i>$num) break;
+            $itemids[] = $relateids[$i];
+        }         
+    }
+    return $itemids;      
+}
+
 function getArticleList($itemid, $order = 'addtime DESC', $cache = '')
 {
     global $db,$CFG,$MOD;
@@ -338,7 +362,8 @@ function getArticleList($itemid, $order = 'addtime DESC', $cache = '')
     if(empty($itemid)) return false;
     
     $lists = $catids = $CATS = array();
-    $condition = "itemid in({$itemid}) and status=3";
+    //$condition = "itemid in({$itemid}) and status=3";
+    $condition = "FIND_IN_SET(itemid, '{$itemid}') and status=3";
     $result = $db->query("SELECT * FROM {$db->pre}article_21 WHERE $condition ORDER BY $order", $cache);
     while($r = $db->fetch_array($result)) {
         $r['adddate'] = timetodate($r['addtime'], 5);
