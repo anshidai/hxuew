@@ -53,8 +53,8 @@ if($items) {
 $showpage = 1;
 $datetype = 5;
 $cols = 5;
-$seo_file = 'list';
-include DT_ROOT.'/include/seo.inc.php';
+$seo_file = 'list';                    
+include DT_ROOT.'/include/seo.inc.php'; 
 if($EXT['mobile_enable']) $head_mobile = $EXT['mobile_url'].mobileurl($moduleid, $catid, 0, $page);
 $template = $CAT['template'] ? $CAT['template'] : ($MOD['template_list'] ? $MOD['template_list'] : 'list');
 include template($template, $module);

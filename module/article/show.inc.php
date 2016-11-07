@@ -68,16 +68,39 @@ if($CAT['show_template']) $template = $CAT['show_template'];
 if($item['template']) $template = $item['template'];
 
 
-$sorttag = sortBystrlen($item['tag']);
-$tagids = getTagidByTagName($sorttag);
-
 $relateItemids = getRelateItemids($itemid, 10);
 if($relateItemids) {
     $relateItemids = implode(',', $relateItemids);
     $relatelist = getArticleList($relateItemids);
 }
 
-$lastlist = getSimilarArticleList($itemid, 10);
+$lastlist = getSimilarArticleList($itemid, $catid, 10);
+
+//报考指南对应资讯页面
+$zhinan = array(
+    
+    //雅思
+    '39' => '8873,8874,8875,9296,9301,9302,9303,9304,9309',
+    
+    //托福
+    '40' => '9310,9326,9317,9318,9319,9320,9321,9322,9323',
+    
+    //SAT
+    '41' => '9370,9518,9519,9520,9521,9522,9523,9528,9529',
+    
+    //GRE
+    '42' => '9530,9531,9532,9533,9534,9535,9538,9537,9536',
+    
+    //GMAT
+    '43' => '9539,9540,9541,9542,9543,9544,9545,9546,9547',
+);
+
+foreach($zhinan as $key=>$val) {
+    $ids = explode(',', $val);
+    foreach($ids as $id) { 
+        $zhinanlinks[$key][] = "{$MOD['linkurl']}{$id}.html";        
+    }   
+}
 
 include template($template, $module);
 ?>

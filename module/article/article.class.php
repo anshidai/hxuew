@@ -310,10 +310,7 @@ class article {
                 $this->db->query("insert into {$CFG['tb_pre']}tags_relate_data (itemid,relateids) VALUES ({$itemid}, '{$itemids}')");    
             }
         }
-        
         $this->updateTagRelateArticle($itemid, $tagids);
-        
- 
     }
     
     function getTagId($tags)
@@ -358,7 +355,9 @@ class article {
         
         shuffle($tagids);
         for($i=0; $i<count($tagids); $i++) {
-            $this->db->query("REPLACE INTO {$CFG['tb_pre']}tags_relate (resid,tagid) VALUES ({$resid}, {$tagids[$i]})");         
+            if(!$this->db->get_one("select * from {$CFG['tb_pre']}tags_relate where tagid='{$tagids[$i]}' and resid='{$resid}'")) {
+                $this->db->query("INSERT INTO {$CFG['tb_pre']}tags_relate (resid,tagid) VALUES ({$resid}, {$tagids[$i]})");        
+            }           
         }        
     } 
     
@@ -366,44 +365,8 @@ class article {
     function pointTagArticle($ids = array(), $isstring = true)
     {
         if(empty($ids)) return false;
-        
-        $data = array();
-        for($i=0; $i<count($ids); $i++) {
-            $itemids = '';
-            $ite = explode(',', $ids[$i]);
-            $itelen = count($ite);
-            
-            if($itelen<3) {
-                $itemids = implode(',', $ite);    
-            }else {
-                if($i == 0) {
-                    $len = round($itelen * 0.2);
-                }elseif($i == 1) {
-                    $len = round($itelen * 0.5);    
-                }elseif($i == 2) {
-                    $len = round($itelen * 0.7);   
-                }elseif($i == 3) {
-                    $len = round($itelen * 0.9);    
-                }elseif($i == 4) {
-                    $len = round($itelen * 0.3);    
-                }elseif($i == 5) {
-                    $len = round($itelen * 0.2);    
-                } 
-                if($len) {
-                    $rand = array_rand($ite, $len);
-                    if($rand) {
-                        for($j=0; $j<count($rand); $j++) {
-                            $itemids .= $ite[$rand[$j]].',';
-                        }
-                        $itemids = rtrim($itemids, ',');    
-                    }     
-                }
-                
-            }
-            $data[] = $itemids;
-        }
-        
-        return $isstring? trim(implode(',', $data), ','): $data;
+
+        return $isstring? trim(implode(',', $ids), ','): $ids;
     }
     
     

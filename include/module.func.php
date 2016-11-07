@@ -295,21 +295,12 @@ function getTagRelateArticle($tagid, $notItemid, $num = 10)
 {
     global $db;
 
-    $result = $db->query("select resid from {$db->pre}tags_relate where tagid in({$tagid})");
+    $result = $db->query("select resid from {$db->pre}tags_relate where tagid in({$tagid}) order by rand() limit {$num}");
     while($r = $db->fetch_array($result)) {
-        //if($r['resid'] <= $notItemid) {
-            $items_tmp[] = $r['resid'];    
-        //}
+        $items[$r['resid']] = $r['resid'];    
     }
-    if(isset($items_tmp[$notItemid])) unset($items_tmp[$notItemid]); 
+    if(isset($items[$notItemid])) unset($items[$notItemid]); 
     
-    if($items_tmp) {
-        shuffle($items_tmp);    
-    }
-    for($i=0; $i<count($items_tmp); $i++) {
-        if($i>$num) break;
-        $items[$items_tmp[$i]] = $items_tmp[$i];
-    }
     return isset($items)? implode(',', $items): '';
 }
 
@@ -389,7 +380,7 @@ function getArticleList($itemid, $order = 'addtime DESC', $cache = '')
     return $lists;
 }
 
-function getSimilarArticleList($itemid, $num = 10, $cache = '')
+function getSimilarArticleList($itemid, $catid = 0, $num = 10, $cache = '')
 {
     global $db,$CFG,$MOD;
     
@@ -397,6 +388,9 @@ function getSimilarArticleList($itemid, $num = 10, $cache = '')
     
     $lists = $catids = $CATS = array();
     $condition = "itemid >{$itemid} and status=3";
+    if($catid) {
+        $condition .= " and catid='{$catid}'";    
+    }
     
     $table = "{$db->pre}article_21"; 
     $result = $db->query("SELECT * FROM $table WHERE $condition ORDER BY itemid ASC LIMIT {$num}", $cache);
@@ -412,6 +406,9 @@ function getSimilarArticleList($itemid, $num = 10, $cache = '')
     if(count($lists)<$num) {
         $num = $num - count($lists);
         $condition = "itemid <{$itemid} and status=3";
+        if($catid) {
+            $condition .= " and catid='{$catid}'";    
+        }
         $result = $db->query("SELECT * FROM $table WHERE $condition ORDER BY itemid DESC LIMIT {$num}", $cache);
         while($r = $db->fetch_array($result)) {
             $r['adddate'] = timetodate($r['addtime'], 5);

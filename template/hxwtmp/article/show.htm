@@ -77,11 +77,66 @@
             </div> <!-- end atricle-left -->
 				
                 <div class="atricle-sider">
+                
+                <div class="right-form">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="white">
+                                    免费获取1对1留学课程
+                                </span>
+                    </div>
+                    <form class="form-inline" role="form">
+                        <div class="form-group col-lg-12 col-md-12">
+                            <input class="form-control" id="userName" placeholder="姓名:" type="text">
+                        </div>
+                        <div class="form-group col-lg-12 col-md-12">
+                            <input class="form-control" id="tel" placeholder="手机:（接受免费课程安排）" type="tel">
+                        </div>
+                        <div class="form-group col-lg-12 col-md-12">
+                            <input class="form-control" id="email" placeholder="邮箱:（接受相关备考资料）" type="email">
+                        </div>
+                        <div id="dropdown">
+                            <select name="input_select">
+                                <option value="">请选择考试科目</option>
+                                <option value="1">托福</option>
+                                <option value="2">雅思</option>
+                                <option value="3">SAT</option>
+                                <option value="4">GRE</option>
+                                <option value="5">GMAT</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 col-md-12 form-submit">
+                            <a class="btn form-btn">免费体验</a>
+                        </div>
+                    </form>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <p>好学网确保绝不将您的信息外泄</p>
+                    </div>
+                </div>
+                <!-- right-form end-->
+                <span class="blank10"></span>
+                
                 <!-- <div class="box-msier t-c"><img src="http://www.ppho.cn/skin/skin_fashion/images/ritop.jpg" alt=""></div> -->
-				<div class="box-msier">
+				<?php if($zhinanlinks[$CAT['parentid']]) {?>
+                <div class="box-msier">
 					<div class="title">备考指南</div>
-					<div class="box-msier t-c"></div>
-                </div> <!-- end box-msier --> 	
+                    <span class="blank10"></span>
+                    <div class="box-tools">
+                        <ul>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][0];?>" target="_blank">考试时间</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][1];?>" target="_blank">考试地点</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][2];?>" target="_blank">考试内容</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][3];?>" target="_blank">报名流程</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][4];?>" target="_blank">考试当日</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][5];?>" target="_blank">成绩复议</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][6];?>" target="_blank">评分标准</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][7];?>" target="_blank">报考费用</a></li>
+                            <li><a href="<?php echo $zhinanlinks[$CAT['parentid']][8];?>" target="_blank">转考退考</a></li>
+                        </ul>    
+                    </div>
+                </div> <!-- end box-msier --> 
+                <span class="blank10"></span>
+                <?php }?>
+                	
                 <div class="box-msier">
 					<div class="title"><a href="{$CAT[linkurl]}" class="wblack">更多>></a>最新{$CAT[catname]}相关资讯</div>
 					<ul class="msier-list">

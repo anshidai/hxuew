@@ -41,12 +41,13 @@ switch($seo_file) {
 		if($MOD['keywords_index']) eval("\$head_keywords = \"$MOD[keywords_index]\";");
 		if($MOD['description_index']) eval("\$head_description = \"$MOD[description_index]\";");
 	break;
-	case 'list':
+	case 'list': 
+        //var_dump($MOD['title_list']);
 		if($MOD['title_list']) {
 			eval("\$seo_title = \"$MOD[title_list]\";");
-		} else {
+		} else { 
 			$seo_title = $seo_cattitle.$seo_page.$seo_modulename.$seo_delimiter.$seo_sitename;
-		}
+		} 
 		$_seo_catname = $seo_catname;
 		$_seo_areaname = $seo_areaname;
 		if($CAT['seo_keywords']) {
@@ -62,7 +63,7 @@ switch($seo_file) {
 			if($_seo_catname) $seo_catname = str_replace($seo_delimiter, ' ', $_seo_catname);
 			if($_seo_areaname) $seo_areaname = str_replace($seo_delimiter, ' ', $_seo_areaname);
 			eval("\$head_description = \"$MOD[description_list]\";");
-		}
+		} 
 	break;
 	case 'show':
 		if($MOD['title_show']) {
