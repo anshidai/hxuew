@@ -31,7 +31,7 @@ function buidXml($data = array())
 	global $sitemapDir, $pagesize;
 	
 	$xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    $xml .= "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+    $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
 	
 	$index = 1;
 	if($data) {
@@ -66,7 +66,7 @@ function createIndex($index = 1)
 	}
 	$xml .= "</sitemapindex>\n";
 	
-	file_put_contents(_ROOT."/sitemap.xml", $xml);
+	file_put_contents(_ROOT."/news_sitemap.xml", $xml);
 }
 
 function getTreeCateName($cid = 0)
