@@ -16,9 +16,9 @@ if(!file_exists($sitemapDir)) {
 }
 
 $pagesize = 10000;
-$result = $db->query("SELECT itemid,catid FROM {$db->pre}article_21 WHERE status=3");
+$result = $db->query("SELECT itemid,catid FROM {$db->pre}article_21 WHERE status=3 ORDER BY addtime DESC");
 while($r = $db->fetch_array($result)) {
-	$data[$r['itemid']] = $r;
+	$data[] = $r;
 }
 
 if($data) {
@@ -28,13 +28,14 @@ if($data) {
 
 function buidXml($data = array())
 {
-	global $sitemapDir,$pagesize;
+	global $sitemapDir, $pagesize;
 	
 	$xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     $xml .= "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
 	
+	$index = 1;
 	if($data) {
-		foreach($data as $val) {
+		foreach($data as $key=>$val) {
 			$xml .= "<url>\n";
 			$xml .= "<loc>http://www.hxuew.com/news/{$val['itemid']}.html</loc>\n";
 			$xml .= "<lastmod>".date('Y-m-d')."</lastmod>\n";
@@ -43,10 +44,29 @@ function buidXml($data = array())
 			$xml .= "</url>\n";
 		}
 		$xml .= "</urlset>\n";  
-		$catname = getTreeCateName($val['catid']);
+		if($key>$pagesize) {
+			$index = 2;
+		}
+		//$catname = getTreeCateName($val['catid']);
 		//file_put_contents($sitemapDir."{$catname}_{$index}.xml", $xml);
 		file_put_contents($sitemapDir."/news_{$index}.xml", $xml);
 	}
+	createIndex($index);
+}
+
+
+function createIndex($index = 1)
+{
+	$xml = "<sitemapindex>\n";
+	for($i=$index; $i<=$index; $i++) {
+		$xml .= "<sitemap>\n";
+		$xml .= "<loc>http://www.hxuew.com/sitemap/news_{$index}.xml</loc>\n";
+		$xml .= "<lastmod>".date('Y-m-d')."</lastmod>\n";
+		$xml .= "</sitemap>\n";
+	}
+	$xml .= "</sitemapindex>\n";
+	
+	file_put_contents(_ROOT."/sitemap.xml", $xml);
 }
 
 function getTreeCateName($cid = 0)
