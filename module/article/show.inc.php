@@ -72,7 +72,7 @@ $relateItemids = getRelateItemids($itemid, 10);
 if($relateItemids) {
     $relateItemids = implode(',', $relateItemids);
     $relatelist = getArticleList($relateItemids);
-}
+}  
 
 $lastlist = getSimilarArticleList($itemid, $catid, 10);
 

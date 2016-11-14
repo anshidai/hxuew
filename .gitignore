@@ -4,3 +4,4 @@ file/upload
 file/log
 file/session/
 db.sql
+*.xml

@@ -139,8 +139,10 @@ class article {
         
         //tag词
         if($tagids = $this->getTagId($post['tag'])) {
-            $this->saveTag($this->itemid, $tagids); 
-            $this->db->query("UPDATE {$this->table} SET tagid='".implode(',', $tagids)."' WHERE itemid=$this->itemid");   
+            if($post['status'] == 3 ) {
+                $this->saveTag($this->itemid, $tagids); 
+                $this->db->query("UPDATE {$this->table} SET tagid='".implode(',', $tagids)."' WHERE itemid=$this->itemid");
+            }
         }
         
 		return $this->itemid;
