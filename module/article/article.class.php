@@ -264,6 +264,12 @@ class article {
 			}
 			$this->db->query("UPDATE {$this->table} SET status=3,hits=hits+1,editor='$_username',edittime=$DT_TIME WHERE itemid=$itemid");
 			$this->tohtml($itemid);
+            
+            //tag词
+            if($tagids = $this->getTagId($item['tag'])) {
+                $this->saveTag($this->itemid, $tagids); 
+                $this->db->query("UPDATE {$this->table} SET tagid='".implode(',', $tagids)."' WHERE itemid=$this->itemid");
+            }
 			return true;
 		}
 	}

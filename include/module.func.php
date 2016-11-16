@@ -339,7 +339,7 @@ function getRelateItemids($itemid, $num = 10)
     if($r) {
         $relateids = explode(',', $r['relateids']);
         for($i=0; $i<count($relateids); $i++) {
-            if($i>$num) break;
+            if($i>=$num) break;
             $itemids[] = $relateids[$i];
         }         
     }

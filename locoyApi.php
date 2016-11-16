@@ -18,6 +18,22 @@ $do = new article($moduleid);
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+if($argv[1] == 'delNoArticle') {
+    $ids = '';
+    $result = $db->query("SELECT distinct resid FROM {$db->pre}tags_relate"); 
+    while($r = $db->fetch_array($result)) {
+        if(!$db->get_one("select * from {$db->pre}article_21 where itemid={$r['resid']}")) {
+            //$ids .= ",{$r['resid']}"; 
+            //$db->query("delete from {$db->pre}tags_relate WHERE resid={$r['resid']}");   
+            //$db->query("delete from {$db->pre}tags_relate_data WHERE itemid={$r['resid']}");   
+        }    
+    } 
+    //echo $ids."\n";
+   // echo count(explode(',',$ids))."\n";
+    exit;  
+}
+
+
 if($argv[1] == 'exportTag') {
     $result = $db->query("SELECT * FROM {$db->pre}article_21 WHERE status=3 ORDER BY addtime DESC");
     //$result = $db->query("SELECT * FROM {$db->pre}article_21 WHERE itemid in(6642,1369)");
@@ -29,9 +45,9 @@ if($argv[1] == 'exportTag') {
                     $itemids_tmp[] = getTagRelateArticle($tagids[$i], $r['itemid']);
                 }
                 $itemids = $do->pointTagArticle($itemids_tmp);
-                //var_dump($itemids);exit;
                 if(!empty($itemids)) {
                     if(!$db->get_one("select * from {$db->pre}tags_relate_data where itemid={$r['itemid']}")) {
+                        //var_dump($r['itemid'],$itemids);exit;
                         $db->query("insert into {$db->pre}tags_relate_data (itemid,relateids) VALUES ({$r['itemid']}, '{$itemids}')");    
                     }
                 }
